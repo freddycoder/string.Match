@@ -83,9 +83,17 @@ namespace @string.Match
 
             foreach (var c in _a.Union(_b))
             {
-                if (!(string.ReferenceEquals(a, c) || string.ReferenceEquals(b, c)))
+                if (!string.ReferenceEquals(a, c)) 
                 {
                     match = a.Equals(c);
+
+                    if (match)
+                    {
+                        break;
+                    }
+                }
+                if (!string.ReferenceEquals(b, c))
+                {
                     match = b.Equals(c);
 
                     if (match)
