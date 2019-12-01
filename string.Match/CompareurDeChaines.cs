@@ -44,6 +44,23 @@ namespace @string.Match
                    EgualiteRemovingSetC(a, b);
         }
 
+        private bool Egualite(string a, string b)
+        {
+            return a.Equals(b);
+        }
+
+        private bool EgualiteIgnoreCase(string a, string b)
+        {
+            return a.Equals(b, StringComparison.OrdinalIgnoreCase)
+                   && NotEqualsMatchInSets(a, b);
+        }
+
+        private bool EgualiteIgnoreCulture(string a, string b)
+        {
+            return a.Equals(b, StringComparison.InvariantCultureIgnoreCase)
+                   && NotEqualsIgnoreCaseMatchInSets(a, b);
+        }
+
         private bool EgualiteIgnoreCultureFort(string a, string b)
         {
             return string.Compare(a, b, CultureInfo.CurrentCulture,
@@ -51,7 +68,16 @@ namespace @string.Match
                    && NotEqualsIngoreCultureInSets(a, b);
         }
 
-        private bool NotEqualsIngoreCultureInSets(string a, string b)
+        private bool EgualiteRemovingSetC(string a, string b)
+        {
+            var ap = RemoveSetC(a);
+            var bp = RemoveSetC(b);
+
+            return ap.Equals(bp)
+                   && NotEqualsIgnoreCultureFortMatchInSets(a, b);
+        }
+
+        private bool NotEqualsMatchInSets(string a, string b)
         {
             var match = false;
 
@@ -59,8 +85,8 @@ namespace @string.Match
             {
                 if (!(string.ReferenceEquals(a, c) || string.ReferenceEquals(b, c)))
                 {
-                    match = EgualiteIgnoreCulture(a, c);
-                    match = EgualiteIgnoreCulture(b, c);
+                    match = a.Equals(c);
+                    match = b.Equals(c);
 
                     if (match)
                     {
@@ -70,12 +96,6 @@ namespace @string.Match
             }
 
             return !match;
-        }
-
-        private bool EgualiteIgnoreCulture(string a, string b)
-        {
-            return a.Equals(b, StringComparison.InvariantCultureIgnoreCase)
-                   && NotEqualsIgnoreCaseMatchInSets(a, b);
         }
 
         private bool NotEqualsIgnoreCaseMatchInSets(string a, string b)
@@ -99,7 +119,7 @@ namespace @string.Match
             return !match;
         }
 
-        private bool NotEqualsIgnoreCultureFortMatchInSets(string a, string b)
+        private bool NotEqualsIngoreCultureInSets(string a, string b)
         {
             var match = false;
 
@@ -107,8 +127,8 @@ namespace @string.Match
             {
                 if (!(string.ReferenceEquals(a, c) || string.ReferenceEquals(b, c)))
                 {
-                    match = EgualiteIgnoreCultureFort(a, c);
-                    match = EgualiteIgnoreCultureFort(b, c);
+                    match = EgualiteIgnoreCulture(a, c);
+                    match = EgualiteIgnoreCulture(b, c);
 
                     if (match)
                     {
@@ -120,27 +140,7 @@ namespace @string.Match
             return !match;
         }
 
-        public bool Egualite(string a, string b)
-        {
-            return a.Equals(b);
-        }
-
-        public bool EgualiteIgnoreCase(string a, string b)
-        {
-            return a.Equals(b, StringComparison.OrdinalIgnoreCase)
-                   && NotEqualsMatchInSets(a, b);
-        }
-
-        public bool EgualiteRemovingSetC(string a, string b)
-        {
-            var ap = RemoveSetC(a);
-            var bp = RemoveSetC(b);
-
-            return ap.Equals(bp)
-                   && NotEqualsIgnoreCultureFortMatchInSets(a, b);
-        }
-
-        private bool NotEqualsMatchInSets(string a, string b)
+        private bool NotEqualsIgnoreCultureFortMatchInSets(string a, string b)
         {
             var match = false;
 
@@ -148,8 +148,8 @@ namespace @string.Match
             {
                 if (!(string.ReferenceEquals(a, c) || string.ReferenceEquals(b, c)))
                 {
-                    match = a.Equals(c);
-                    match = b.Equals(c);
+                    match = EgualiteIgnoreCultureFort(a, c);
+                    match = EgualiteIgnoreCultureFort(b, c);
 
                     if (match)
                     {
