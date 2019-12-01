@@ -15,15 +15,15 @@ il faut que pour l'ensemble des chaines, il en ait aucune qui valide une des ré
 
 ## Exemple
 En utilisant la méthode d'extension ou une instance de la class CompareurDeChaines les chaines
-avec les indice correspondant vont retourner vrai lors de l'appele de la fonction Match.\n
-A = ["École", "Bureau", "Maison", "feuillet-inscription"]\n
-B = ["ecole", "bureau", "maison", "feuillet_inscription"]\n
+avec les indice correspondant vont retourner vrai lors de l'appele de la fonction Match.<br />
+A = ["École", "Bureau", "Maison", "feuillet-inscription"]<br />
+B = ["ecole", "bureau", "maison", "feuillet_inscription"]<br />
 
 Avec des ensembles avec beaucoup de ressemblance, la méthode Match de la class CompareurDeChaines
 va retouner vrai pour celui qui est le plus près seuelement.  Donc les chaines avec les indice 
-correspondant vont retourner vrai lors de l'appele de la fonction Match.\n
-A = ["Frédéric", "frederic"]\n
-B = ["frédéric", "Frederic"]\n
+correspondant vont retourner vrai lors de l'appele de la fonction Match.<br />
+A = ["Frédéric", "frederic"]<br />
+B = ["frédéric", "Frederic"]<br />
 
 ## Cas spéciaux
 Lorsque les chaines sont écrit à la dure dans les DLL, s'ils sont identique, ils semble partager la
