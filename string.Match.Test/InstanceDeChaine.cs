@@ -54,6 +54,7 @@ namespace @string.Match.Test
             var compareur = new CompareurDeChaines(setA, setB);
 
             Assert.AreEqual(2, setA.Count);
+            Assert.AreEqual("Frédéric", setA[0]);
 
             for (int i = 0; i < setA.Count; i++)
             {
@@ -65,7 +66,7 @@ namespace @string.Match.Test
                     }
                     else
                     {
-                        Assert.IsFalse(compareur.Match(setA[i], setB[j]), $"{setA[i]} ne peut pas aller avec {setB[i]}");
+                        Assert.IsFalse(compareur.Match(setA[i], setB[j]), $"{setA[i]} ne peut pas aller avec {setB[j]}");
                     }
                 }
             }
