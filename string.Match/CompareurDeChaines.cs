@@ -82,7 +82,7 @@ namespace @string.Match
 
             foreach (var c in _a.Union(_b))
             {
-                if (!string.ReferenceEquals(a, c) && !string.ReferenceEquals(b, c)) 
+                if (!ReferenceEquals(a, c) && !ReferenceEquals(b, c)) 
                 {
                     match = func.Invoke(a, c) || func.Invoke(b, c);
 
