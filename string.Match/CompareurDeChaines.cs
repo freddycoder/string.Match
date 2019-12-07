@@ -35,6 +35,13 @@ namespace @string.Match
             _c = new HashSet<char> { '_', '-', ' ' };
         }
 
+        public CompareurDeChaines(IEnumerable<string> a, IEnumerable<string> b, IEnumerable<char> c)
+        {
+            _a = new HashSet<string>(a);
+            _b = new HashSet<string>(b);
+            _c = new HashSet<char>(c);
+        }
+
         public bool Match(string a, string b)
         {
             return Egualite(a, b) ||

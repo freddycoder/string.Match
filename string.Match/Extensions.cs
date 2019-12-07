@@ -21,7 +21,7 @@ namespace @string.Match
         }
 
         /// <summary>
-        /// Effectue un foreach
+        /// Effectue un foreach avec index
         /// </summary>
         public static void ForEach<T>(this IList<T> list, Action<T, int> action)
         {

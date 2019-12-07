@@ -9,48 +9,41 @@ namespace @string.Match
 {
     public class CSVOpener
     {
-        public static List<T> ReadFile<T>(string path) where T : class
+        public static List<T> ReadFile<T>(string path, char separator = ';', Encoding encoding = null) where T : class
         {
             var list = new List<T>();
 
-            var text = File.ReadAllText(path, Encoding.Default);
-
-            var lines = text.ParseToLines();
+            var lines = File.ReadAllText(path, encoding ?? Encoding.Default)
+                            .ParseToLines();
 
             // La clé représente la colonne et la valeur la propriété obtenue par reflexion
-            var properties = ParseHeader<T>(lines[0]);
+            var properties = ParseHeader<T>(lines[0], separator);
 
-            var firstLine = true;
-
-            lines.ForEach(line =>
+            lines.ForEach((line, l) =>
             {
-                if (!firstLine)
+                if (l > 0)
                 {
-                    var transaction = Activator.CreateInstance<T>();
+                    var @object = Activator.CreateInstance<T>();
 
-                    line.Split(';').ForEach((e, i) =>
+                    line.Split(separator).ForEach((e, i) =>
                     {
                         if (properties.ContainsKey(i))
                         {
-                            properties[i].SetValue(transaction, e);
+                            properties[i].SetValue(@object, e);
                         }
                     });
 
-                    list.Add(transaction);
-                }
-                else
-                {
-                    firstLine = false;
+                    list.Add(@object);
                 }
             });
 
             return list;
         }
 
-        private static Dictionary<int, PropertyInfo> ParseHeader<T>(string headerLine)
+        private static Dictionary<int, PropertyInfo> ParseHeader<T>(string headerLine, char separator)
         {
             var indexToProperty = new Dictionary<int, PropertyInfo>();
-            var titles = headerLine.Split(';');
+            var titles = headerLine.Split(separator);
             var properties = typeof(T).GetProperties();
             var compareur = new CompareurDeChaines(titles, properties.Select(p => p.Name));
 
