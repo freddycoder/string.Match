@@ -33,14 +33,14 @@ namespace @string.Match
 
         /// <summary>
         /// Permet de lire une chaine de text en tableau de ligne en ignorant les sauts de lignes entre ""
-        /// L'exemple suivant va retourner une seul ligne au lieu de deux comme ke faut dans la method static
+        /// L'exemple suivant va retourner une seul ligne au lieu de deux comme le fait dans la methode static
         /// File.ReadLines
         /// exemple : a"\n"a
         /// </summary>
         /// <param name="text"></param>
         public static string[] ParseToLines(this string text)
         {
-            var lines = new List<string>();
+            var lines = new List<string>(text.Split('\n'));
 
             bool escapeEndl = false;
 
