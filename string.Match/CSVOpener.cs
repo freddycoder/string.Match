@@ -51,7 +51,7 @@ namespace @string.Match
             {
                 if (!string.IsNullOrWhiteSpace(title))
                 {
-                    var propriete = properties.First(p => compareur.Match(title, p.Name));
+                    var propriete = properties.FirstOrDefault(p => compareur.Match(title, p.Name));
 
                     if (propriete != null)
                     {
