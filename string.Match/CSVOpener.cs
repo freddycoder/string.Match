@@ -25,11 +25,11 @@ namespace @string.Match
                 {
                     var @object = Activator.CreateInstance<T>();
 
-                    line.Split(separator).ForEach((e, i) =>
+                    line.Split(separator).ForEach((value, i) =>
                     {
                         if (properties.ContainsKey(i))
                         {
-                            properties[i].SetValue(@object, e);
+                            properties[i].SetValue(@object, value);
                         }
                     });
 

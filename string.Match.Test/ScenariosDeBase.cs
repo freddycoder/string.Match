@@ -78,6 +78,8 @@ namespace @string.Match.Test
 
             Assert.IsFalse(compareur.Match(setA[0], setB[1]), $"{setA[0]} ne peut pas aller avec {setB[1]}");
             Assert.IsFalse(compareur.Match(setA[1], setB[1]), $"{setA[1]} ne peut pas aller avec {setB[0]}");
+            // Parce que "Écriture" du setA et du setB partagent la même instance, l'algoritme ne peut pas
+            // valider correctement le cas suivant
         }
 
         [TestMethod]
