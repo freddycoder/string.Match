@@ -40,7 +40,7 @@ namespace @string.Match
         /// <param name="text"></param>
         public static string[] ParseToLines(this string text)
         {
-            var lines = new List<string>(text.Split('\n'));
+            var lines = new List<string>(text.Split('\n').Length);
 
             bool escapeEndl = false;
 
