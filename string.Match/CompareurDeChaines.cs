@@ -15,7 +15,7 @@ namespace @string.Match
         }
     }
 
-    public class CompareurDeChaines
+    public class CompareurDeChaines : IEqualityComparer<string>
     {
         private readonly HashSet<string> _a;
         private readonly HashSet<string> _b;
@@ -23,13 +23,32 @@ namespace @string.Match
         private readonly List<Func<string, string, bool>> _predicats;
 
         /// <summary>
-        /// Constrcteur par défaut. Les ensemble A et B seront.
+        /// Constrcteur par défaut. Les ensemble A et B seront vide.
         /// </summary>
         public CompareurDeChaines()
         {
             _a = new HashSet<string>();
             _b = new HashSet<string>();
-            _c = new HashSet<char> { '_', '-', ' ' };
+            _c = new HashSet<char> { '_', '-', ' ', '\r' };
+            _predicats = new List<Func<string, string, bool>>
+            {
+                Egualite,
+                EgualiteIgnoreCase,
+                EgualiteIgnoreCulture,
+                EgualiteIgnoreCultureFort,
+                EgualiteRemovingSetC
+            };
+        }
+
+        /// <summary>
+        /// Consutucteur avec un emsemble de valeur
+        /// </summary>
+        /// <param name="a"></param>
+        public CompareurDeChaines(IEnumerable<string> a)
+        {
+            _a = new HashSet<string>(a);
+            _b = new HashSet<string>();
+            _c = new HashSet<char> { '_', '-', ' ', '\r' };
             _predicats = new List<Func<string, string, bool>>
             {
                 Egualite,
@@ -49,7 +68,7 @@ namespace @string.Match
         {
             _a = new HashSet<string>(a);
             _b = new HashSet<string>(b);
-            _c = new HashSet<char> { '_', '-', ' ' };
+            _c = new HashSet<char> { '_', '-', ' ', '\r' };
             _predicats = new List<Func<string, string, bool>>
             {
                 Egualite,
@@ -99,6 +118,16 @@ namespace @string.Match
             _b = new HashSet<string>(b);
             _c = new HashSet<char>(c);
             _predicats = predicats;
+        }
+
+        public bool Equals(string x, string y)
+        {
+            return Match(x, y);
+        }
+
+        public int GetHashCode(string obj)
+        {
+            return obj.GetHashCode();
         }
 
         /// <summary>

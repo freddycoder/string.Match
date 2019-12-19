@@ -13,9 +13,14 @@ namespace @string.Match
         {
             var list = new List<T>();
 
-            var lines = File.ReadAllText(path, encoding ?? Encoding.Default)
-                            .ParseToLines();
+            string[] lines;
 
+            using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var sr = new StreamReader(fs, encoding ?? Encoding.Default))
+            {
+                lines = sr.ReadToEnd().ParseToLines();
+            }
+            
             // La clé représente la colonne et la valeur la propriété obtenue par reflexion
             var properties = ParseHeader<T>(lines[0], separator);
 

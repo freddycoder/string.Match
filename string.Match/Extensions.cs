@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace @string.Match
@@ -31,6 +32,11 @@ namespace @string.Match
             };
         }
 
+        public static void ForEach<T>(this IEnumerable<T> list, Action<T, int> action)
+        {
+            list.ToList().ForEach(action);
+        }
+
         /// <summary>
         /// Permet de lire une chaine de text en tableau de ligne en ignorant les sauts de lignes entre ""
         /// L'exemple suivant va retourner une seul ligne au lieu de deux comme le fait dans la methode static
@@ -40,7 +46,7 @@ namespace @string.Match
         /// <param name="text"></param>
         public static string[] ParseToLines(this string text)
         {
-            var lines = new List<string>(text.Split('\n'));
+            var lines = new List<string>(text.Split('\n').Length);
 
             bool escapeEndl = false;
 
@@ -65,6 +71,21 @@ namespace @string.Match
             }
 
             return lines.ToArray();
+        }
+
+        public static int IndexOf<T>(this IList<T> list, Func<T, bool> predicat)
+        {
+            int indexOf = -1;
+
+            for (int i = 0; i < list.Count && indexOf == -1; i++)
+            {
+                if (predicat.Invoke(list[i]))
+                {
+                    indexOf = i;
+                }
+            }
+
+            return indexOf;
         }
     }
 }
