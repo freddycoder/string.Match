@@ -14,6 +14,25 @@ En utilisant une instance de la classe CompareurDeChaines, pour qu'une chaine so
 il faut que pour l'ensemble des chaines, il en ait aucune qui valide une des régles précédentes.
 
 ## Exemple
+```
+var registre = CSVOpener.ReadFile<Registre>(args[0]);
+            
+registre.GroupBy(r => r.Etudiant, new CompareurDeChaines(registre.Select(r => r.Etudiant)))
+        .Select(r => new 
+        {
+            Etudiant = r.Key,
+            Nombre = r.Count(),
+            Depense = r.Sum(c => double.Parse(c.Montant)),
+        })
+        .ForEach(r =>
+        {
+            Console.WriteLine("---");
+            Console.WriteLine(r.Etudiant);
+            Console.WriteLine($"Nombre  : {r.Nombre}");
+            Console.WriteLine($"Depense : {r.Depense}");
+        });
+```
+
 En utilisant la méthode d'extension ou une instance de la class CompareurDeChaines les chaines
 avec les indice correspondant vont retourner vrai lors de l'appele de la fonction Match.<br />
 A = ["École", "Bureau", "Maison", "feuillet-inscription"]<br />
