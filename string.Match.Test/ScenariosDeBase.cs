@@ -57,7 +57,7 @@ namespace @string.Match.Test
         }
 
         [TestMethod]
-        public void ScenarioUtilisationDesEmsembles1()
+        public void ScenarioUtilisationDesEnsembles1()
         {
             var setA = new List<string> { "Écriture", "Ecriture" };
             var setB = new List<string> { "Écriture", "Ecriture" };
@@ -69,7 +69,7 @@ namespace @string.Match.Test
         }
 
         [TestMethod]
-        public void ScenarioUtilisationDesEmsembles2()
+        public void ScenarioUtilisationDesEnsembles2()
         {
             var setA = new List<string> { "Écriture", "Ecriture" };
             var setB = new List<string> { "Écriture", "Ecriture" };
@@ -83,7 +83,7 @@ namespace @string.Match.Test
         }
 
         [TestMethod]
-        public void ScenarioUtilisationDesEmsembles3()
+        public void ScenarioUtilisationDesEnsembles3()
         {
             var setA = new List<string> { "Frédéric", "Frederic" };
             var setB = new List<string> { "frédéric", "frederic" };
@@ -95,7 +95,7 @@ namespace @string.Match.Test
         }
 
         [TestMethod]
-        public void ScenarioUtilisationDesEmsembles4()
+        public void ScenarioUtilisationDesEnsembles4()
         {
             var setA = new List<string> { "Frédéric", "Frederic" };
             var setB = new List<string> { "frédéric", "frederic" };
