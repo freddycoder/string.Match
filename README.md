@@ -52,5 +52,5 @@ Ce qui n'est pas le cas lorsque ils sont obtenu à partire de chaine non écrit 
 Voir les méthodes de test :
 - HardCodedVsStringObtenuParReflexion
 - HardCodedVsStringObtenuParReflexion2
-- ScenarioUtilisationDesEmsembles2
-- ScenarioUtilisationDesEmsembles3
+- ScenarioUtilisationDesEnsembles2
+- ScenarioUtilisationDesEnsembles3
