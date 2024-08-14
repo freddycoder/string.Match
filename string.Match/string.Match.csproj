@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CompareurDeChaines.cs" />
     <Compile Include="CSVOpener.cs" />
+    <Compile Include="CSVWriter.cs" />
     <Compile Include="MultiKeyReadOnlyDictionnary.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

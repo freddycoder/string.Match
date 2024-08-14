@@ -20,21 +20,53 @@ namespace @string.Match
             {
                 lines = sr.ReadToEnd().ParseToLines();
             }
-            
+
             // La clé représente la colonne et la valeur la propriété obtenue par reflexion
             var properties = ParseHeader<T>(lines[0], separator);
 
             lines.ForEach((line, l) =>
             {
+                if (line.EndsWith("\r"))
+                {
+                    line = line.Substring(0, line.Length - 1);
+                }
+
                 if (l > 0)
                 {
                     var @object = Activator.CreateInstance<T>();
 
-                    line.Split(separator).ForEach((value, i) =>
+                    var cols = CsvSplit(line, separator);
+
+                    cols.ForEach((value, i) =>
                     {
                         if (properties.ContainsKey(i))
                         {
-                            properties[i].SetValue(@object, value);
+                            try
+                            {
+                                if (properties[i].PropertyType == typeof(string))
+                                {
+                                    properties[i].SetValue(@object, value);
+                                }
+                                else if (properties[i].PropertyType == typeof(int))
+                                {
+                                    properties[i].SetValue(@object, int.Parse(value));
+                                }
+                                else if (properties[i].PropertyType == typeof(double))
+                                {
+                                    properties[i].SetValue(@object, double.Parse(value, System.Globalization.CultureInfo.InvariantCulture));
+                                }
+                                else if (properties[i].PropertyType == typeof(DateTime))
+                                {
+                                    properties[i].SetValue(@object, DateTime.Parse(value, System.Globalization.CultureInfo.InvariantCulture));
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                Console.Error.WriteLine($"Erreur lors de la lecture de la ligne {l} et de la colonne {i} : {e.Message}");
+                                Console.Error.WriteLine($"La valeur {value} n'a pas pu être convertie en {properties[i].PropertyType}");
+                                Console.Error.WriteLine(cols.Aggregate((a, b) => $"{a};{b}"));
+                                Console.Error.WriteLine(line);
+                            }
                         }
                     });
 
@@ -66,6 +98,34 @@ namespace @string.Match
             });
 
             return indexToProperty;
+        }
+
+        public static string[] CsvSplit(string line, char separator)
+        {
+            var values = new List<string>();
+            var sb = new StringBuilder();
+            bool escape = false;
+
+            for (int i = 0; i < line.Length; i++)
+            {
+                if (line[i] == '"')
+                {
+                    escape = !escape;
+                }
+                else if (line[i] == separator && !escape)
+                {
+                    values.Add(sb.ToString());
+                    sb.Clear();
+                }
+                else
+                {
+                    sb.Append(line[i]);
+                }
+            }
+
+            values.Add(sb.ToString());
+
+            return values.ToArray();
         }
     }
 }

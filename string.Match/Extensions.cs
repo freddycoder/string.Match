@@ -63,6 +63,7 @@ namespace @string.Match
                 else if (text[i] == '"')
                 {
                     escapeEndl = !escapeEndl;
+                    sb.Append(text[i]);
                 }
                 else
                 {
@@ -86,6 +87,25 @@ namespace @string.Match
             }
 
             return indexOf;
+        }
+
+        public static string RemoveSpaceChar(this string text)
+        {
+            var sb = new StringBuilder();
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (char.IsWhiteSpace(text[i]))
+                {
+                    continue;
+                }
+                else
+                {
+                    sb.Append(text[i]);
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

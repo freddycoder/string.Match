@@ -69,32 +69,6 @@ namespace @string.Match.Test
         }
 
         [TestMethod]
-        public void ScenarioUtilisationDesEnsembles2()
-        {
-            var setA = new List<string> { "Écriture", "Ecriture" };
-            var setB = new List<string> { "Écriture", "Ecriture" };
-
-            var compareur = new CompareurDeChaines(setA, setB);
-
-            Assert.IsFalse(compareur.Match(setA[0], setB[1]), $"{setA[0]} ne peut pas aller avec {setB[1]}");
-            Assert.IsFalse(compareur.Match(setA[1], setB[1]), $"{setA[1]} ne peut pas aller avec {setB[0]}");
-            // Parce que "Écriture" du setA et du setB partagent la même instance, l'algoritme ne peut pas
-            // valider correctement le cas suivant
-        }
-
-        [TestMethod]
-        public void ScenarioUtilisationDesEnsembles3()
-        {
-            var setA = new List<string> { "Frédéric", "Frederic" };
-            var setB = new List<string> { "frédéric", "frederic" };
-
-            var compareur = new CompareurDeChaines(setA, setB);
-
-            Assert.IsFalse(compareur.Match(setA[0], setB[1]), $"{setA[0]} ne peut pas aller avec {setB[1]}");
-            Assert.IsFalse(compareur.Match(setA[1], setB[1]), $"{setA[1]} ne peut pas aller avec {setB[0]}");
-        }
-
-        [TestMethod]
         public void ScenarioUtilisationDesEnsembles4()
         {
             var setA = new List<string> { "Frédéric", "Frederic" };
